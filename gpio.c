@@ -5,15 +5,15 @@
 
 //The directoriess
 void setDDRB(int newDDRB){
-	DDRB |= newDDRB;
+	DDRB = newDDRB;
 }
 
 void setDDRC(int newDDRC){
-	DDRC |= newDDRC;
+	DDRC = newDDRC;
 }
 
 void setDDRD(int newDDRD){
-	DDRD |= newDDRD;
+	DDRD = newDDRD;
 }
 
 //Sensing pins

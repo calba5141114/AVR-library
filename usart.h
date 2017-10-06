@@ -4,13 +4,13 @@
 
 #define MAX_MESSAGE 20
 
-extern volatile char[MAX_MESSAGE] messageIn;
+extern volatile char messageIn[MAX_MESSAGE];
 extern volatile unsigned int counterIn;
 
-extern volatile char[MAX_MESSAGE] messageOut;
+extern volatile char messageOut[MAX_MESSAGE];
 extern volatile unsigned int counterOut;
 
-extern unsigned int stringLength;
+extern int stringLength;
 extern volatile char transmitterBusy;
 
 

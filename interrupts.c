@@ -1,7 +1,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "usart.h"
-void function1(void);
+#include "gpio.h"
 //Interrupts are next.
 
 //interrupts are a bit special. We can enable them, but that is about it. The developer has to write the actual code for the interrupt.
@@ -30,7 +30,7 @@ ISR(PCINT2_vect){
 
 /*Timer Interrupts*/
 ISR(TIMER0_OVF_vect){
-tick++;
+
 }
 
 ISR(TIMER0_COMPA_vect){
@@ -80,7 +80,8 @@ ISR(USART_RX_vect){
 
 ISR(USART_TX_vect){
 	if(counterOut < stringLength){
-		UDR0 = messageOut[counterOut++];	
+		UDR0 = messageOut[counterOut++];
+		setB(5,0);	
 	}else{
 		transmitterBusy = 0;
 	}

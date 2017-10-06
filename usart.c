@@ -1,16 +1,19 @@
 #include <avr/io.h>
+#include <string.h>
 #include "main.h"
 #include "usart.h"
 
 //USART, for Transmit, Recieve, and Init
 
-volatile char[MAX_MESSAGE] messageIn;
+volatile char messageIn[MAX_MESSAGE];
 volatile unsigned int counterIn = 0;
 
-volatile char[MAX_MESSAGE] messageOut;
-unsigned int stringLength = 0;
+volatile char messageOut[MAX_MESSAGE];
+int stringLength = 0;
 volatile unsigned int counterOut = 0;
 volatile char transmitterBusy = 0;
+char str1[]="Sample string";
+
 
 void USART_Init( unsigned int ubrr)
 {
@@ -28,12 +31,12 @@ void USART_Init( unsigned int ubrr)
 void printUART(char* str){
 	if(!transmitterBusy){
 		counterOut = 0;
-		stringLength = strlen(str);
+		stringLength = strlen(str1);
 		if(stringLength > MAX_MESSAGE){
-			strncpy (messageOut, str, MAX_MESSAGE);		
+			strncpy(messageOut, str, MAX_MESSAGE);		
 		}
 		else{
-			strcpy(messageOut, str);
+			strcpy(messageOut, str1);
 		}
 			UDR0 = messageOut[counterOut++];
 			transmitterBusy = 1;
