@@ -12,7 +12,7 @@ int main (void){
 	USART_Init(MYUBRR(9600));
 
 	while(1){
-		USART_Transmit('1');
+		printUART("Hello World/r/n");
 	}
 	return 0;
 }

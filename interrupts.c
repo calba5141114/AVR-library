@@ -69,9 +69,19 @@ ISR(TIMER2_COMPB_vect){
 /*USART Interrupts*/
 
 ISR(USART_RX_vect){
-	char[MAX_MESSAGE] message;
+	if(counterIn < MAX_MESSAGE){
+		messageIn[counterIn++] = UDR0;
+	}
+	else{
+		//TODO: Error Handling
+		counterIn = 0;
+	}
 }
 
 ISR(USART_TX_vect){
-
+	if(counterOut < stringLength){
+		UDR0 = messageOut[counterOut++];	
+	}else{
+		transmitterBusy = 0;
+	}
 }
