@@ -15,8 +15,11 @@ extern volatile char transmitterBusy;
 
 
 void USART_Init( unsigned int ubrr);
+char* readUART(void);
+void printUART(char* str);
+void clearMessages(void);
+
 // void USART_Transmit( unsigned char data );
 // unsigned char USART_Receive( void );
-void printUART(char* str);
 
 #endif

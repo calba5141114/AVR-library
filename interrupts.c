@@ -2,6 +2,7 @@
 #include <avr/interrupt.h>
 #include "usart.h"
 #include "gpio.h"
+#include "main.h"
 //Interrupts are next.
 
 //interrupts are a bit special. We can enable them, but that is about it. The developer has to write the actual code for the interrupt.
@@ -68,21 +69,33 @@ ISR(TIMER2_COMPB_vect){
 
 /*USART Interrupts*/
 
+ISR(USART_TX_vect){
+	if(counterOut < stringLength){
+		UDR0 = messageOut[counterOut++];
+	}else{
+		transmitterBusy = 0;
+	}
+}
+
 ISR(USART_RX_vect){
-	if(counterIn < MAX_MESSAGE){
+/*
+if(;){
+	set flag up done
+	interpret commands
+	clear messages
+}
+
+*/
+
+	if(UDR0 == '\n'){
+		executeFlag = 1;
+	}
+	else if(counterIn < MAX_MESSAGE){
 		messageIn[counterIn++] = UDR0;
 	}
 	else{
 		//TODO: Error Handling
 		counterIn = 0;
 	}
-}
-
-ISR(USART_TX_vect){
-	if(counterOut < stringLength){
-		UDR0 = messageOut[counterOut++];
-		setB(5,0);	
-	}else{
-		transmitterBusy = 0;
-	}
+	
 }

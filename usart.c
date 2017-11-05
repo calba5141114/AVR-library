@@ -12,7 +12,6 @@ volatile char messageOut[MAX_MESSAGE];
 int stringLength = 0;
 volatile unsigned int counterOut = 0;
 volatile char transmitterBusy = 0;
-char str1[]="Sample string";
 
 
 void USART_Init( unsigned int ubrr)
@@ -31,17 +30,30 @@ void USART_Init( unsigned int ubrr)
 void printUART(char* str){
 	if(!transmitterBusy){
 		counterOut = 0;
-		stringLength = strlen(str1);
+		stringLength = strlen(str);
 		if(stringLength > MAX_MESSAGE){
 			strncpy(messageOut, str, MAX_MESSAGE);		
 		}
 		else{
-			strcpy(messageOut, str1);
+			strcpy(messageOut, str);
 		}
 			UDR0 = messageOut[counterOut++];
 			transmitterBusy = 1;
 	}
 }
+char* readUART(void){
+	char output[MAX_MESSAGE];
+	strcpy(output, messageIn);
+	return output;
+}
+
+void clearMessages(void){
+	messageIn[0] = 0;
+	messageOut[0] = 0;
+	counterIn = 0;
+	counterOut = 0;
+}
+
 
 // void USART_Transmit( unsigned char data )
 // {

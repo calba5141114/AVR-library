@@ -1,19 +1,33 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <util/delay.h>
+#include <string.h>
 #include "main.h"
 #include "usart.h"
 #include "gpio.h"
 #include "timer.h"
 #include "interrupts.h"
 
+volatile char executeFlag = 0;
+
+volatile char* str;
+
+void interpret(char* string){
+	PORTB |= (1<<5);
+}
 
 int main (void){
+	DDRB |= (1<<5);
+	USART_Init(8);
+	sei();
 
-	USART_Init(MYUBRR(9600));
-	setDDRB(0b100000);
-	// setB(5,0);
 	while(1){
-		printUART("Hello World/r/n");
-	}
+		if(executeFlag){
+			interpret(messageIn);
+			clearMessages();
+			executeFlag = 0;	
+		}
+	}	
+
 	return 0;
 }
