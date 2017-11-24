@@ -1,0 +1,11 @@
+
+When you compile this on the command line you must compile it correctly.
+In GCC you would compile it like this:
+
+gcc  vector-use-example vector.c 
+
+the first c file is the main file the second is the vector file
+this is a must do in c as there is no easy way to import code.
+feel free to find a better solution to this but this will work for now.
+
+a.exe is a precompiled example of vector-use-example.c
